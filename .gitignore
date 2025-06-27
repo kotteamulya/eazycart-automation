@@ -1,0 +1,17 @@
+# Ignore Python cache and bytecode
+__pycache__/
+*.pyc
+
+# Ignore environment files
+.env
+*.env
+
+# Ignore test reports
+reports/
+
+# Ignore IDE/editor settings
+.idea/
+.vscode/
+
+# Ignore Excel test data
+testdata/*.xlsx

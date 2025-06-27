@@ -1,5 +1,6 @@
 import openpyxl
 import time
+import pyautogui
 from pages.login_page import loginPage
 from pages.home_page import HomePage
 from pages.cart_page import CartPage
@@ -8,20 +9,20 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoAlertPresentException
 from pages.checkout_page import CheckoutPage
+import pytest
+@pytest.mark.order(2)
+def test_cart_checkout_with_excel(driver):
+    ...
 
 def test_cart_checkout_flow(driver):
+    def close_alert_popup():
+        time.sleep(2)  # Wait for popup to appear
+        pyautogui.press('enter')  # Simulates pressing Enter
+        print("Popup closed by pressing Enter.")
     driver.get("https://www.saucedemo.com/")
+    close_alert_popup()
 
-    try:
-        alert = driver.switch_to.alert
-        alert.accept()
-        print("Alert accepted.")
-    except NoAlertPresentException:
-        print("No alert present.")
-
-    WebDriverWait(driver, 10).until(
-     EC.presence_of_element_located((By.ID, "user-name"))
-    )
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "user-name")))
 
     # Login
     wb = openpyxl.load_workbook('testdata/credentials.xlsx')
